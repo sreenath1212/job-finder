@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder Dashboard | Multi-Platform Job Search</title>
+    <meta name="description" content="Search jobs across LinkedIn, Indeed, Naukri, Glassdoor, and Google Jobs simultaneously using Apify-powered scrapers.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/index.css?v=4">
+</head>
+<body>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <i class="fa-solid fa-magnifying-glass-chart logo-icon"></i>
+                </div>
+                <div>
+                    <h1 id="main-title">Job Finder</h1>
+                    <p class="subtitle">Search all major job boards simultaneously — powered by Apify</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="/crud" class="btn btn-secondary">
+                    <i class="fa-solid fa-database"></i> Manage Database
+                </a>
+            </div>
+        </header>
+
+        <!-- Stats Banner -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon-wrapper blue">
+                    <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <div class="stat-details">
+                    <span class="stat-label">Total Listings</span>
+                    <h2 id="stat-total">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper emerald">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div class="stat-details">
+                    <span class="stat-label">Platforms Active</span>
+                    <h2 id="stat-platforms">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper violet">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div class="stat-details">
+                    <span class="stat-label">Latest Scan</span>
+                    <h2 id="stat-latest" style="font-size: 1rem;">—</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Panel -->
+        <section class="control-panel-card">
+            <div class="panel-header">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> AI-Powered Job Search</h3>
+                <p>Describe what you're looking for — AI extracts the details, you review and launch the search.</p>
+            </div>
+
+            <!-- Step 1: Natural Language Input -->
+            <div class="sentence-search-row">
+                <input type="text" id="query-sentence-input"
+                    placeholder="e.g. Looking for a remote Python backend developer job, entry level...">
+                <button id="btn-parse-query" class="btn btn-secondary">
+                    <i class="fa-solid fa-circle-notch fa-spin parser-spinner" style="display: none;"></i>
+                    <i class="fa-solid fa-brain parser-icon"></i>
+                    <span>Generate Details</span>
+                </button>
+            </div>
+
+            <!-- Step 2: Editable Parameters -->
+            <div class="parameters-form">
+                <div class="form-title">Review &amp; Edit Search Parameters</div>
+                <div class="parameters-grid">
+                    <div class="form-group">
+                        <label for="param-role">Keywords / Role</label>
+                        <input type="text" id="param-role" placeholder="e.g. Python Developer">
+                    </div>
+                    <div class="form-group">
+                        <label for="param-location">Location</label>
+                        <input type="text" id="param-location" placeholder="e.g. Remote / Bangalore">
+                    </div>
+                    <div class="form-group">
+                        <label for="param-experience">Experience Level</label>
+                        <select id="param-experience">
+                            <option value="Entry Level">Entry Level</option>
+                            <option value="Mid Level">Mid Level</option>
+                            <option value="Senior Level">Senior Level</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="param-type">Job Type</label>
+                        <select id="param-type">
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Internship">Internship</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="param-limit">Results per Platform</label>
+                        <select id="param-limit">
+                            <option value="10">10</option>
+                            <option value="15" selected>15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Platform Checkboxes -->
+                <div class="platforms-section">
+                    <div class="form-title platforms-form-title">Select Platforms to Search</div>
+                    <div class="platform-checkboxes" id="platform-checkboxes">
+                        <label class="platform-checkbox-item" data-platform="LinkedIn">
+                            <input type="checkbox" value="LinkedIn" checked>
+                            <span class="platform-pill linkedin">
+                                <i class="fa-brands fa-linkedin"></i> LinkedIn
+                            </span>
+                        </label>
+                        <label class="platform-checkbox-item" data-platform="Indeed">
+                            <input type="checkbox" value="Indeed" checked>
+                            <span class="platform-pill indeed">
+                                <i class="fa-solid fa-briefcase"></i> Indeed
+                            </span>
+                        </label>
+                        <label class="platform-checkbox-item" data-platform="Naukri">
+                            <input type="checkbox" value="Naukri" checked>
+                            <span class="platform-pill naukri">
+                                <i class="fa-solid fa-n"></i> Naukri
+                            </span>
+                        </label>
+                        <label class="platform-checkbox-item" data-platform="Glassdoor">
+                            <input type="checkbox" value="Glassdoor">
+                            <span class="platform-pill glassdoor">
+                                <i class="fa-solid fa-door-open"></i> Glassdoor
+                            </span>
+                        </label>
+                        <label class="platform-checkbox-item" data-platform="Google Jobs">
+                            <input type="checkbox" value="Google Jobs">
+                            <span class="platform-pill google">
+                                <i class="fa-brands fa-google"></i> Google Jobs
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions-row">
+                    <button id="btn-run-pipeline" class="btn btn-primary">
+                        <i class="fa-solid fa-circle-notch fa-spin spinner" style="display: none;"></i>
+                        <i class="fa-solid fa-rocket search-icon"></i>
+                        <span>Search All Selected Platforms</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Bar -->
+        <section class="filter-bar">
+            <div class="panel-header filter-bar-header">
+                <h4><i class="fa-solid fa-filter"></i> Filter Results</h4>
+            </div>
+            <div class="filter-group search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon-db"></i>
+                <input type="text" id="search-input" placeholder="Search by title, company, location, description...">
+            </div>
+
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label for="filter-status">Status</label>
+                    <select id="filter-status">
+                        <option value="All">All Statuses</option>
+                        <option value="New">New</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-platform">Platform</label>
+                    <select id="filter-platform">
+                        <option value="All">All Platforms</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="Indeed">Indeed</option>
+                        <option value="Naukri">Naukri</option>
+                        <option value="Glassdoor">Glassdoor</option>
+                        <option value="Google Jobs">Google Jobs</option>
+                        <option value="Manual">Manual/Imported</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-date">Date Posted</label>
+                    <select id="filter-date">
+                        <option value="All">Anytime</option>
+                        <option value="Today">Today (24h)</option>
+                        <option value="Week">This week</option>
+                        <option value="Month">This month</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-type">Job Type</label>
+                    <select id="filter-type">
+                        <option value="All">All Types</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Part-time">Part-time</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jobs Listing -->
+        <main class="jobs-section">
+            <div class="section-header">
+                <h3>Discovered Opportunities</h3>
+                <div class="view-toggle-group">
+                    <button id="btn-view-current" class="btn-toggle">
+                        <i class="fa-solid fa-star"></i> Current Search
+                    </button>
+                    <button id="btn-view-all" class="btn-toggle active">
+                        <i class="fa-solid fa-database"></i> All Stored Jobs
+                    </button>
+                </div>
+                <span id="job-count-badge" class="badge">Showing 0 jobs</span>
+            </div>
+
+            <div id="jobs-loader" class="loader-container" style="display: none;">
+                <i class="fa-solid fa-circle-notch fa-spin big-spinner"></i>
+                <p>Loading job database...</p>
+            </div>
+
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <i class="fa-regular fa-folder-open empty-icon"></i>
+                <h4>No Jobs Found</h4>
+                <p>Try clearing filters or run a new search above.</p>
+            </div>
+
+            <div id="jobs-container" class="jobs-grid"></div>
+        </main>
+    </div>
+
+    <!-- Scanner Overlay with Per-Platform Status Cards -->
+    <div id="scanner-overlay" class="overlay" style="display: none;">
+        <div class="overlay-card">
+            <i class="fa-solid fa-satellite-dish scan-animation-icon"></i>
+            <h3>Searching Job Boards in Parallel</h3>
+            <p>All selected platforms are being scraped simultaneously via Apify...</p>
+
+            <!-- Per-platform status grid -->
+            <div id="platform-status-grid" class="platform-status-grid">
+                <!-- Dynamically populated by JS -->
+            </div>
+
+            <div class="overlay-status" id="overlay-status-text">Initializing parallel scrapers...</div>
+        </div>
+    </div>
+
+    <script src="/static/index.js?v=4"></script>
+</body>
+</html>

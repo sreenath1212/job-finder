@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database CRUD Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS (imports index.css variables) -->
+    <link rel="stylesheet" href="/static/index.css?v=4">
+    <link rel="stylesheet" href="/static/crud.css?v=4">
+</head>
+<body>
+    <!-- Decorative background glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="container">
+        <!-- Page Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <i class="fa-solid fa-database logo-icon"></i>
+                </div>
+                <div>
+                    <h1>Database CRUD Center</h1>
+                    <p class="subtitle">Direct Create, Read, Update, and Delete Actions on PostgreSQL</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="/" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </header>
+
+        <!-- CRUD Controls Bar -->
+        <section class="crud-control-bar">
+            <button id="btn-open-create-modal" class="btn btn-primary">
+                <i class="fa-solid fa-plus"></i> Add Manual Job Listing
+            </button>
+            <div class="search-box crud-search">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="crud-search-input" placeholder="Quick filter table rows by title or company...">
+            </div>
+            <div class="filter-group crud-date-filter" style="display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem;">
+                <label for="crud-filter-date" style="color: var(--text-secondary); font-size: 0.8125rem; font-weight: 500; white-space: nowrap;">Date Posted:</label>
+                <select id="crud-filter-date" class="crud-select" style="min-width: 130px; padding: 0.6rem 1rem;">
+                    <option value="All">Anytime</option>
+                    <option value="Hour">Last hour</option>
+                    <option value="Today">Today (24h)</option>
+                    <option value="Week">This week</option>
+                    <option value="Month">This month</option>
+                    <option value="Year">This year</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- CRUD Table Container -->
+        <section class="table-container-card">
+            <div class="table-scroll-wrapper">
+                <table class="crud-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Job Title / Role</th>
+                            <th>Company</th>
+                            <th>Contact / Apply Info</th>
+                            <th>Location</th>
+                            <th>Job Type</th>
+                            <th>Platform</th>
+                            <th>Posted Date</th>
+                            <th>Apply Last Date</th>
+                            <th>HR Contacts</th>
+
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crud-table-body">
+                        <!-- Dynamically populated rows -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Loader in Table -->
+            <div id="crud-table-loader" class="loader-container" style="display: none;">
+                <i class="fa-solid fa-circle-notch fa-spin big-spinner"></i>
+                <p>Loading database records...</p>
+            </div>
+
+            <!-- Empty Database State -->
+            <div id="crud-empty-state" class="empty-state" style="display: none;">
+                <i class="fa-regular fa-folder-open empty-icon"></i>
+                <h4>No Jobs Found in Database</h4>
+                <p>Add a manual listing above or return to the dashboard to scan job boards.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- CREATE JOB MODAL -->
+    <div id="create-job-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Add Manual Job Listing</h3>
+                <button class="btn-close-modal" onclick="closeModal('create-job-modal')">&times;</button>
+            </div>
+            <form id="form-create-job" onsubmit="handleCreateJob(event)">
+                <div class="modal-body-grid">
+                    <div class="form-group">
+                        <label for="create-title">Job Title *</label>
+                        <input type="text" id="create-title" required placeholder="e.g. Full-Stack Developer">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-company">Company *</label>
+                        <input type="text" id="create-company" required placeholder="e.g. Stripe">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-location">Location</label>
+                        <input type="text" id="create-location" placeholder="e.g. Remote / Kerala">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-job-type">Job Type</label>
+                        <input type="text" id="create-job-type" placeholder="e.g. Full-time / Internship">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-experience">Experience Level</label>
+                        <input type="text" id="create-experience" placeholder="e.g. Fresher (0-2 years)">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-salary">Salary / Package</label>
+                        <input type="text" id="create-salary" placeholder="e.g. ₹8,00,000 - ₹12,00,000">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-platform">Platform</label>
+                        <input type="text" id="create-platform" placeholder="e.g. Manual Entry">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-url">Apply / Listing URL *</label>
+                        <input type="url" id="create-url" required placeholder="e.g. https://stripe.com/jobs/dev">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-company-email">Contact / Apply Info <small style="color:var(--text-secondary);font-weight:400;">(email, URL, or method)</small></label>
+                        <input type="text" id="create-company-email" placeholder="e.g. careers@stripe.com or Apply at careers.stripe.com">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="create-description">Job Description</label>
+                        <textarea id="create-description" rows="3" placeholder="Enter job description keywords or details..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 500; font-size: 0.8125rem;">HR / Point of Contacts</span>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="addContactField('create')" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">
+                                <i class="fa-solid fa-plus"></i> Add Contact
+                            </button>
+                        </label>
+                        <div id="create-contacts-list" class="modal-contacts-list"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="create-posted-date">Posted Date</label>
+                        <input type="date" id="create-posted-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="create-apply-last-date">Apply Last Date</label>
+                        <input type="date" id="create-apply-last-date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('create-job-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT JOB MODAL -->
+    <div id="edit-job-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-pen-to-square"></i> Edit Job Listing</h3>
+                <button class="btn-close-modal" onclick="closeModal('edit-job-modal')">&times;</button>
+            </div>
+            <form id="form-edit-job" onsubmit="handleUpdateJob(event)">
+                <!-- Hidden inputs to store id -->
+                <input type="hidden" id="edit-job-id">
+                
+                <div class="modal-body-grid">
+                    <div class="form-group">
+                        <label for="edit-title">Job Title *</label>
+                        <input type="text" id="edit-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-company">Company *</label>
+                        <input type="text" id="edit-company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-location">Location</label>
+                        <input type="text" id="edit-location">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-job-type">Job Type</label>
+                        <input type="text" id="edit-job-type">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-experience">Experience Level</label>
+                        <input type="text" id="edit-experience">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-salary">Salary / Package</label>
+                        <input type="text" id="edit-salary">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-platform">Platform</label>
+                        <input type="text" id="edit-platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-url">Apply / Listing URL *</label>
+                        <input type="url" id="edit-url" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-status">Application Status</label>
+                        <select id="edit-status" class="crud-select">
+                            <option value="New">New</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-company-email">Contact / Apply Info <small style="color:var(--text-secondary);font-weight:400;">(email, URL, or method)</small></label>
+                        <input type="text" id="edit-company-email" placeholder="e.g. hr@company.com or Apply via portal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-posted-date">Posted Date</label>
+                        <input type="date" id="edit-posted-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-apply-last-date">Apply Last Date</label>
+                        <input type="date" id="edit-apply-last-date">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="edit-description">Job Description</label>
+                        <textarea id="edit-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 500; font-size: 0.8125rem;">HR / Point of Contacts</span>
+                            <button type="button" class="btn btn-secondary btn-small" onclick="addContactField('edit')" style="padding: 0.35rem 0.65rem; font-size: 0.75rem;">
+                                <i class="fa-solid fa-plus"></i> Add Contact
+                            </button>
+                        </label>
+                        <div id="edit-contacts-list" class="modal-contacts-list"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-job-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/crud.js?v=4"></script>
+</body>
+</html>

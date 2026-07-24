@@ -1,0 +1,156 @@
+{
+  "name": "Sreenath Mohan",
+  "email": "ssreenathhpd@gmail.com",
+  "phone": "+91 8590682450",
+  "linkedin": "linkedin.com/in/sreenath-mohan-8999a9282",
+  "portfolio": "github.com/sreenath1212",
+  "summary": "A passionate and adaptable technology professional with a background in Electronics and a Master's degree in Computer Science. Skilled in both hardware and software domains, with hands-on experience in embedded systems, full-stack web development, and AI/ML integration. Proficient in tools and frameworks including Python, JavaScript, React, Node.js, Django, and various sensor technologies. Known for strong problem-solving skills, effective teamwork, and a genuine willingness to learn and adapt to new technologies. Demonstrated ability to build innovative, scalable solutions across academic, research, and real-world settings. Open to diverse roles in development, automation, AI, IoT, and systems engineering.",
+  "work_experience": [
+    {
+      "title": "Software Faculty / Developer",
+      "company": "GTEC Education Kayamkulam",
+      "duration": "Aug 2025 - Present",
+      "location": "Kayamkulam, Kerala",
+      "bullets": [
+        "Instruct students on core programming languages, Data Science methodologies, and Power BI visualization workflows.",
+        "Deliver training modules and guide hands-on projects in Artificial Intelligence, Robotics, and Electronics engineering concepts.",
+        "Mentor students in designing and deploying full-stack web applications and hardware-software integrations.",
+        "Develop internal software tools, automation scripts, and maintain up-to-date technology training curriculum standards."
+      ]
+    },
+    {
+      "title": "Data Science Intern",
+      "company": "Unified Mentor",
+      "duration": "2024",
+      "location": "Remote",
+      "bullets": [
+        "Built machine learning models using scikit-learn for predictive analytics.",
+        "Worked with data manipulation and analysis libraries including Pandas and NumPy to preprocess and clean structured datasets.",
+        "Participated in regression and classification tasks to uncover data-driven insights."
+      ]
+    },
+    {
+      "title": "Web Development Intern",
+      "company": "IHRD College of Applied Science",
+      "duration": "2023 - 2024",
+      "location": "Mavelikkara, Kerala",
+      "bullets": [
+        "Contributed to full-stack tasks in real-time college administration and information projects.",
+        "Gained hands-on experience in responsive UI development, API integration, debugging, and agile workflow."
+      ]
+    }
+  ],
+  "project_experience": [
+    {
+      "title": "AI & Software Developer (Academic Project)",
+      "company": "IHRD InfoBot (AI-Powered Chatbot)",
+      "duration": "2024",
+      "location": "Mavelikkara, Kerala",
+      "bullets": [
+        "Developed an AI-powered chatbot providing conversational, semantic responses to queries related to IHRD colleges across Kerala.",
+        "Embedded structured institutional CSV datasets using Sentence Transformers and indexed with FAISS for fast semantic search.",
+        "Employed dual Google Gemini models—one for natural language conversational answering and another for automated field identification.",
+        "Designed and implemented an interactive, mobile-friendly chatbot UI using Streamlit featuring live chat history, exports, and resets.",
+        "Recognized with First Prize among Higher Education Department stalls in a state government exhibition."
+      ]
+    },
+    {
+      "title": "Full-Stack Developer (Academic Project)",
+      "company": "HealthyMe (Advanced Diet & Health Management System)",
+      "duration": "2024",
+      "location": "Mavelikkara, Kerala",
+      "bullets": [
+        "Engineered a comprehensive diet and health platform spanning web and desktop applications.",
+        "Built pythonic Django backend integrated with scikit-learn models (K-Means, Random Forest) for recommendation engines.",
+        "Integrated Google Gemini API for an AI-powered dietician chatbot and Edamam API for generating 30-day meal plans.",
+        "Implemented secure user role-based access (user, admin, dietician), BMR calculations, and exercise tracking.",
+        "Designed responsive user interfaces using HTML5, CSS3, Bootstrap, and jQuery, alongside a standalone Tkinter GUI desktop client."
+      ]
+    },
+    {
+      "title": "Full-Stack Developer (Project)",
+      "company": "Agricultural E-commerce Platform",
+      "duration": "2025 (In Development)",
+      "location": "Remote",
+      "bullets": [
+        "Developing a comprehensive e-commerce platform for agricultural products featuring secure authentication via Firebase and Google OAuth.",
+        "Engineered the backend with Node.js/Express.js, pg (PostgreSQL driver), Multer for image uploads, and SMTP for email confirmations.",
+        "Built the frontend with React.js using Context API for global state management and Jest for component testing."
+      ]
+    },
+    {
+      "title": "Frontend & React Developer (Project)",
+      "company": "Clinic Calendar Scheduling Application",
+      "duration": "2024",
+      "location": "Remote",
+      "bullets": [
+        "Engineered a scheduling web application using React.js to streamline medical clinic appointment bookings.",
+        "Implemented conflict detection, past date validations, custom appointment durations, and persistent storage via browser localStorage.",
+        "Conducted automated unit testing with Jest and React Testing Library to ensure high application stability and reliability."
+      ]
+    },
+    {
+      "title": "Embedded Systems Engineer (Project)",
+      "company": "Surveillance Robotic Dog",
+      "duration": "2023",
+      "location": "Mavelikkara, Kerala",
+      "bullets": [
+        "Designed and developed an autonomous robotic dog for real-time security and surveillance applications.",
+        "Programmed a PIC16F877A microcontroller in Embedded C using MPLAB IDE and XC8 compiler.",
+        "Integrated multi-sensor arrays (Ultrasonic, IR, PIR, Compass) to handle obstacle avoidance and autonomous pathfinding.",
+        "Built sound alert systems using Barking ICs and amplifiers, simulating security dog behaviors."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master's Degree in Computer Science",
+      "school": "IHRD College of Applied Science Mavelikkara (University of Kerala)",
+      "year": "2023 - 2025"
+    },
+    {
+      "degree": "Bachelor's Degree in Electronics",
+      "school": "IHRD College of Applied Science Mavelikkara (University of Kerala)",
+      "year": "2020 - 2023"
+    },
+    {
+      "degree": "Plus Two - Science",
+      "school": "NSS HSS Karuvatta, Haripad",
+      "year": "2018 - 2020"
+    }
+  ],
+  "skills": [
+    "Python",
+    "JavaScript (ES6+)",
+    "C",
+    "Java",
+    "Django",
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "Streamlit",
+    "Google Gemini API",
+    "Sentence Transformers",
+    "FAISS",
+    "scikit-learn",
+    "NumPy",
+    "Pandas",
+    "OpenCV",
+    "MySQL",
+    "PostgreSQL",
+    "SQLite",
+    "Firebase Authentication",
+    "Google OAuth 2.0",
+    "RESTful API Design",
+    "Embedded Systems",
+    "PIC16F877A Microcontroller",
+    "MPLAB IDE",
+    "Proteus 8",
+    "Git",
+    "GitHub"
+  ],
+  "certifications": [
+    "Embedded for Beginners (NIELIT Calicut, June 2023)",
+    "The Fundamentals of Digital Marketing (Google Digital Garage)"
+  ]
+}
