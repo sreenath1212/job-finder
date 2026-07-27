@@ -13,3 +13,22 @@ pip-delete-this-directory.txt
 *.db
 *.sqlite3
 .DS_Store
+# Auto-generated ignores for clean push
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+ai/
+*.log
+*.lib
+*.dll
+*.exe
+*.onnx
+*.pt
+*.pth
+*.bin
+*.safetensors
+Thumbs.db
+.vscode/
+.idea/
