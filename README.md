@@ -1,15 +1,36 @@
 # job-finder
 
-A developer project application codebase.
+## Overview
+**job-finder** is a software application codebase.
 
-## Features & Project Details
-- Clean, structured codebase setup.
-- Automated repository management and tracking.
+## Directory Structure
+```
+.env
+.env.example
+.gitignore
+app.py
+app_server.py
+db.py
+hunter_enrichment.py
+README.md
+requirements.txt
+schema.sql
+scraper.py
+show_results.py
+test_db_connection.py
+resumes\README.md
+resumes\sample_resume.json
+scratch\check_db_activity.py
+static\crud.css
+static\crud.html
+static\crud.js
+static\index.css
+```
 
-## Getting Started
-1. Clone the repository.
-2. Review project structure and install dependencies based on configuration files.
-3. Run the development or build scripts as specified in the project.
+## Setup & Running
+1. Clone the repository: `git clone https://github.com/sreenath1212/job-finder.git`
+2. Install necessary dependencies based on configuration files.
+3. Run the entrypoint script.
 
 ---
-*Uploaded & maintained automatically.*
+*Maintained automatically.*
